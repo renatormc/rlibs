@@ -25,8 +25,9 @@ if args.command == "copy":
         name = inquirer.select(message="Chose lib:", choices=all_libs).execute()
         libs = [name]
     else:
-        libs = all_libs
+        libs = [entry.name for entry in Path("./rlibs").iterdir() if entry.is_dir()]
     for lib in all_libs:
+        print(f"Copying lib \"{lib}\"")
         rlibs_to = Path("./rlibs")
         subprocess.run(['rclone', 'sync', '-v', str(script_dir / "rlibs" / lib), str(rlibs_to / lib)])
 elif args.command == "install":
