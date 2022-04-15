@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 from InquirerPy import inquirer
 import sys
+import stat
 
 script_dir = Path(os.path.dirname(os.path.realpath(__file__))).absolute()
 
@@ -34,6 +35,15 @@ elif args.command == "install":
         text = f"@echo off\n\"{sys.executable}\" \"{main_script}\" %*"
         path = Path("C:\\Windows\\rlibs.bat")
         path.write_text(text)
+    else:
+        main_script = script_dir / "main.py"
+        text = f"#!/bin/bash\n\"{sys.executable}\" \"{main_script}\" $@"
+        path = Path().home() / ".local/bin/rlibs"
+        if not path.parent.exists():
+            path.parent.mkdir()
+        path.write_text(text)
+        st = path.stat()
+        os.chmod(path, st.st_mode | stat.S_IEXEC)
 
 
    
