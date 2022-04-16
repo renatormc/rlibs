@@ -29,7 +29,7 @@ if args.command == "copy":
     for lib in all_libs:
         print(f"Copying lib \"{lib}\"")
         rlibs_to = Path("./rlibs")
-        subprocess.run(['rclone', 'sync', '-v', str(script_dir / "rlibs" / lib), str(rlibs_to / lib)])
+        subprocess.run(['rclone', 'sync', '-v', '--filter-from', str(script_dir / "rclone_filter.txt"), str(script_dir / "rlibs" / lib), str(rlibs_to / lib)])
 elif args.command == "install":
     if os.name == "nt":
         main_script = script_dir / "main.py"
