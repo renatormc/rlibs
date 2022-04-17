@@ -135,7 +135,7 @@ class Filters:
     def moeda_extenso(value, prefix="R$ "):
         value_str = f"{value:.2f}".replace(".", ",")
         reais = math.floor(value)
-        centavos = int((value%reais + 0.0000000001)*100)
+        centavos = int((value%reais + 0.0000000001)*100) if reais > 0 else value*100
         reais_text = get_extenso(reais)
         aux1 = "reais" if reais > 1 else "real"
         aux2 = "centavos" if centavos > 1 else "centavo"
