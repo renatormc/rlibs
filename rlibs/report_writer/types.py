@@ -1,11 +1,17 @@
 from pathlib import Path
-from typing import Any
+from typing import Any, TypedDict
 
+class ValidationError(Exception):
+    pass
 
 class InitialData:
     def __init__(self) -> None:
         self.context: dict = {}
         self.form_data: dict = {}
+
+class FormLayoutItem(TypedDict):
+    field_name: str
+    widget_type: str
 
 
 class ObjectType:
